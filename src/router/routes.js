@@ -1,1 +1,6 @@
-export const routes = [];
+export default [
+  {
+    path: "/",
+    component: () => import("@/views/IndexHome"),
+  },
+];
