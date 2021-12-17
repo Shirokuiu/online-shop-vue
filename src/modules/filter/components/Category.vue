@@ -49,6 +49,7 @@ export default {
       this.$router.push({
         path: "/",
         query: {
+          ...this.$route.query,
           category: value,
         },
       });

@@ -3,10 +3,7 @@
     <h2 class="title filter__title">Фильтр</h2>
     <form class="filter__form" action="#" method="post">
       <Category />
-      <div class="filter__range">
-        <label for="range">Цена, ₽</label>
-        <input type="text" id="sampleSlider" />
-      </div>
+      <Price />
       <div class="filter__estate">
         <fieldset class="filter__type filter__type--estate">
           <legend>Тип недвижимости</legend>
@@ -504,12 +501,14 @@
 
 <script>
 import Category from "@/modules/filter/components/Category";
+import Price from "@/modules/filter/components/Price";
 
 export default {
   name: "TheFilter",
 
   components: {
     Category,
+    Price,
   },
 };
 </script>
