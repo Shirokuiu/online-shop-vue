@@ -1,13 +1,12 @@
 <template>
   <div class="filter__range">
     <label for="range">Цена, ₽</label>
-    <VueRangeSlider :min="min" :max="max" :value="range" />
+    <VueSlider :value="range" :min="min" :max="max"></VueSlider>
   </div>
 </template>
 
 <script>
-import "vue-range-component/dist/vue-range-slider.css";
-import VueRangeSlider from "vue-range-component";
+import VueSlider from "vue-slider-component";
 import { mapActions, mapState } from "vuex";
 import { getRangePrice } from "@/modules/filter/helpers/get-range-price";
 
@@ -15,7 +14,7 @@ export default {
   name: "Price",
 
   components: {
-    VueRangeSlider,
+    VueSlider,
   },
 
   computed: {
