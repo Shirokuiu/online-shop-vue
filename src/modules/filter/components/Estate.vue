@@ -5,17 +5,17 @@
       <ul class="filter__checkboxes-list filter__checkboxes-list--estate">
         <li class="filter__checkboxes-item">
           <AppCheckbox id="house" name="estate-type" value="house">
-            <label for="house">Дом</label>
+            Дом
           </AppCheckbox>
         </li>
         <li class="filter__checkboxes-item">
           <AppCheckbox id="flat" name="estate-type" value="flat">
-            <label for="flat">Квартира</label>
+            Квартира
           </AppCheckbox>
         </li>
         <li class="filter__checkboxes-item">
           <AppCheckbox id="apartments" name="estate-type" value="apartments">
-            <label for="apartments">Апартаменты</label>
+            Апартаменты
           </AppCheckbox>
         </li>
       </ul>
