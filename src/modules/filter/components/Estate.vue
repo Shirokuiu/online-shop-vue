@@ -22,12 +22,11 @@
     </fieldset>
     <div class="filter__min-square">
       <label for="square">Минимальная площать, м<sup>2</sup></label>
-      <input
-        type="number"
+      <AppInputNumber
         id="square"
+        :value="0"
         name="min-square"
-        min="1"
-        value=""
+        :min="1"
         placeholder="0"
       />
     </div>
@@ -101,12 +100,14 @@
 
 <script>
 import AppCheckbox from "@/core/components/AppCheckbox";
+import AppInputNumber from "@/core/components/AppInputNumber";
 
 export default {
   name: "Estate",
 
   components: {
     AppCheckbox,
+    AppInputNumber,
   },
 };
 </script>

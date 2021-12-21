@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "@/assets/css/style.css";
+import "vue-slider-component/theme/default.css";
 
 Vue.config.productionTip = false;
 
