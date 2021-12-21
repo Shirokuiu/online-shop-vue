@@ -7,7 +7,7 @@
       :value="value"
       :id="id"
     />
-    <slot></slot>
+    <label :for="id"><slot>Дом</slot></label>
   </div>
 </template>
 
