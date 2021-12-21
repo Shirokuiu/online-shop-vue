@@ -1,34 +1,34 @@
 <template>
-  <div class="app-checkbox">
+  <div class="app-radio">
     <input
       class="visually-hidden"
-      type="checkbox"
+      type="radio"
       :name="name"
       :value="value"
       :id="id"
     />
-    <slot></slot>
+    <label :for="id"><slot></slot></label>
   </div>
 </template>
 
 <script>
 export default {
-  name: "AppCheckbox",
+  name: "AppRadio",
 
   props: {
     id: {
       type: String,
-      default: "checkbox",
+      default: "radio",
     },
 
     value: {
       type: String,
-      default: "checkbox",
+      default: "radio",
     },
 
     name: {
       type: String,
-      default: "checkbox",
+      default: "radio",
     },
   },
 };

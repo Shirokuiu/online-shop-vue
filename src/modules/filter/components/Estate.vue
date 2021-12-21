@@ -34,64 +34,22 @@
       <legend>Количество комнат</legend>
       <ul class="filter__ram-list">
         <li class="filter__radiobuttons-item">
-          <input
-            class="visually-hidden"
-            type="radio"
-            name="rooms"
-            value="any"
-            id="any_room"
-          />
-          <label for="any_room">Любое</label>
+          <AppRadio id="any_room" value="any" name="rooms"> Любое </AppRadio>
         </li>
         <li class="filter__radiobuttons-item">
-          <input
-            class="visually-hidden"
-            type="radio"
-            name="rooms"
-            value="one"
-            id="one"
-          />
-          <label for="one">1</label>
+          <AppRadio id="one" value="one" name="rooms"> 1 </AppRadio>
         </li>
         <li class="filter__radiobuttons-item">
-          <input
-            class="visually-hidden"
-            type="radio"
-            name="rooms"
-            value="two"
-            id="two"
-          />
-          <label for="two">2</label>
+          <AppRadio id="two" value="two" name="rooms"> 2 </AppRadio>
         </li>
         <li class="filter__radiobuttons-item">
-          <input
-            class="visually-hidden"
-            type="radio"
-            name="rooms"
-            value="three"
-            id="three"
-          />
-          <label for="three">3</label>
+          <AppRadio id="three" value="three" name="rooms"> 3 </AppRadio>
         </li>
         <li class="filter__radiobuttons-item">
-          <input
-            class="visually-hidden"
-            type="radio"
-            name="rooms"
-            value="four"
-            id="four"
-          />
-          <label for="four">4</label>
+          <AppRadio id="four" value="four" name="rooms"> 4 </AppRadio>
         </li>
         <li class="filter__radiobuttons-item">
-          <input
-            class="visually-hidden"
-            type="radio"
-            name="rooms"
-            value="fivemore"
-            id="fivemore"
-          />
-          <label for="fivemore">5+</label>
+          <AppRadio id="fivemore" value="fivemore" name="rooms"> 5+ </AppRadio>
         </li>
       </ul>
     </fieldset>
@@ -101,6 +59,7 @@
 <script>
 import AppCheckbox from "@/core/components/AppCheckbox";
 import AppInputNumber from "@/core/components/AppInputNumber";
+import AppRadio from "@/core/components/AppRadio";
 
 export default {
   name: "Estate",
@@ -108,6 +67,7 @@ export default {
   components: {
     AppCheckbox,
     AppInputNumber,
+    AppRadio,
   },
 };
 </script>
