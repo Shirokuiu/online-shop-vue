@@ -1,11 +1,16 @@
-import { buildCategories } from "@/modules/filter/helpers";
+import { buildSelect } from "@/modules/filter/helpers";
 import { SET_ACTIVE } from "@/modules/filter/store/category/mutation-types";
+import { CategoriesLabel, CategoriesValues } from "@/modules/filter/constants";
 
 export default {
   namespaced: true,
 
   state: () => ({
-    categories: buildCategories(),
+    categories: buildSelect({
+      selectValues: CategoriesValues,
+      selectKeyMap: CategoriesLabel,
+      activeValue: CategoriesValues[0],
+    }),
   }),
 
   mutations: {
