@@ -155,6 +155,10 @@
   transition: var(--animation);
 }
 
+.filter__checkboxes-item {
+  position: relative;
+}
+
 .filter__checkboxes-item input:focus + label {
   color: var(--light-blue);
 }
