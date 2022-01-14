@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "TestHoc",
+  name: "WithAddQueryParam",
 
   props: {
     queryParamKey: {

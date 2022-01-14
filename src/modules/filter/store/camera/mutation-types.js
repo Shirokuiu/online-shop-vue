@@ -1,0 +1,2 @@
+export const SET_ACTIVE_MATRIX = "SET_ACTIVE_MATRIX";
+export const SET_ACTIVE_VIDEO = "SET_ACTIVE_VIDEO";

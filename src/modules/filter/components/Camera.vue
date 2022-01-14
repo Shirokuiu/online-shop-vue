@@ -20,26 +20,52 @@
         </li>
       </ul>
     </fieldset>
-    <AppSelect
-      id="resolution-matrix"
-      name="resolution-matrix"
-      :options="resolutionMatrix"
-      class="filter__select-wrapper--min-resolution"
-      >Минимальное разрешение матрицы</AppSelect
+    <WithAddQueryParam
+      v-slot="scope"
+      queryParamKey="resolution-matrix"
+      @set-active="
+        setActiveResolution({
+          type: TypesCamera.Matrix,
+          activeOptionValue: $event,
+        })
+      "
     >
-    <AppSelect
-      id="resolution-video"
-      name="resolution-video"
-      :options="resolutionVideo"
-      >>Минимальное разрешение видео</AppSelect
+      <AppSelect
+        id="resolution-matrix"
+        name="resolution-matrix"
+        :options="resolutionMatrix"
+        class="filter__select-wrapper--min-resolution"
+        @change="scope.change"
+        >Минимальное разрешение матрицы</AppSelect
+      >
+    </WithAddQueryParam>
+    <WithAddQueryParam
+      v-slot="scope"
+      queryParamKey="resolution-video"
+      @set-active="
+        setActiveResolution({
+          type: TypesCamera.Video,
+          activeOptionValue: $event,
+        })
+      "
     >
+      <AppSelect
+        id="resolution-video"
+        name="resolution-video"
+        :options="resolutionVideo"
+        @change="scope.change"
+        >>Минимальное разрешение видео</AppSelect
+      >
+    </WithAddQueryParam>
   </div>
 </template>
 
 <script>
 import AppCheckbox from "@/core/components/AppCheckbox";
 import AppSelect from "@/core/components/AppSelect";
-import { mapState } from "vuex";
+import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
+import { mapActions, mapState } from "vuex";
+import { TypesCamera } from "@/modules/filter/constants";
 
 export default {
   name: "Camera",
@@ -47,10 +73,21 @@ export default {
   components: {
     AppCheckbox,
     AppSelect,
+    WithAddQueryParam,
+  },
+
+  data() {
+    return {
+      TypesCamera,
+    };
   },
 
   computed: {
     ...mapState("Filter/Camera", ["resolutionMatrix", "resolutionVideo"]),
+  },
+
+  methods: {
+    ...mapActions("Filter/Camera", ["setActiveResolution"]),
   },
 };
 </script>
