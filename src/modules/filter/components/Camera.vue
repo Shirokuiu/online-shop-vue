@@ -21,7 +21,7 @@
       </ul>
     </fieldset>
     <WithAddQueryParam
-      v-slot="scope"
+      v-slot="{ change }"
       queryParamKey="resolution-matrix"
       @set-active="
         setActiveResolution({
@@ -35,12 +35,12 @@
         name="resolution-matrix"
         :options="resolutionMatrix"
         class="filter__select-wrapper--min-resolution"
-        @change="scope.change"
+        @change="change"
         >Минимальное разрешение матрицы</AppSelect
       >
     </WithAddQueryParam>
     <WithAddQueryParam
-      v-slot="scope"
+      v-slot="{ change }"
       queryParamKey="resolution-video"
       @set-active="
         setActiveResolution({
@@ -53,7 +53,7 @@
         id="resolution-video"
         name="resolution-video"
         :options="resolutionVideo"
-        @change="scope.change"
+        @change="change"
         >>Минимальное разрешение видео</AppSelect
       >
     </WithAddQueryParam>

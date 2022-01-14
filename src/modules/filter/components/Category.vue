@@ -2,13 +2,13 @@
   <WithAddQueryParam
     query-param-key="category"
     @set-active="this.setActive"
-    v-slot="scope"
+    v-slot="{ change }"
   >
     <AppSelect
       id="categories1"
       name="categories1"
       :options="categories"
-      @change="scope.change"
+      @change="change"
       >Категория товаров</AppSelect
     >
   </WithAddQueryParam>
