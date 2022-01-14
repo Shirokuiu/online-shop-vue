@@ -1,4 +1,4 @@
-import { buildSelect } from "@/modules/filter/helpers";
+import { buildSelect, setActiveSelect } from "@/modules/filter/helpers";
 import { SET_ACTIVE } from "@/modules/filter/store/category/mutation-types";
 import { CategoriesLabel, CategoriesValues } from "@/modules/filter/constants";
 
@@ -14,17 +14,19 @@ export default {
   }),
 
   mutations: {
-    [SET_ACTIVE](state, category) {
-      state.categories = state.categories.map((categoryItem) => ({
-        ...categoryItem,
-        isSelected: categoryItem.value === category,
-      }));
+    [SET_ACTIVE](state, updatedCategories) {
+      state.categories = updatedCategories;
     },
   },
 
   actions: {
-    setActive({ commit }, category) {
-      commit(SET_ACTIVE, category);
+    setActive({ state, commit }, category) {
+      const updatedCategories = setActiveSelect({
+        options: state.categories,
+        activeOptionValue: category,
+      });
+
+      commit(SET_ACTIVE, updatedCategories);
     },
   },
 };
