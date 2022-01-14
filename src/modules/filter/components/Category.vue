@@ -1,34 +1,29 @@
 <template>
-  <div class="filter__select-wrapper">
-    <label for="categories">Категория товаров</label>
+  <WithAddQueryParam
+    query-param-key="category"
+    @set-active="this.setActive"
+    v-slot="{ change }"
+  >
     <AppSelect
-      id="categories"
+      id="categories1"
+      name="categories1"
       :options="categories"
-      @change="categoryChange"
-    ></AppSelect>
-    <svg
-      width="14"
-      height="8"
-      viewBox="0 0 14 8"
-      xmlns="http://www.w3.org/2000/svg"
+      @change="change"
+      >Категория товаров</AppSelect
     >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7 5.58579L12.2929 0.292893C12.6834 -0.0976311 13.3166 -0.0976311 13.7071 0.292893C14.0976 0.683417 14.0976 1.31658 13.7071 1.70711L7.70711 7.70711C7.31658 8.09763 6.68342 8.09763 6.29289 7.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z"
-      />
-    </svg>
-  </div>
+  </WithAddQueryParam>
 </template>
 
 <script>
-import AppSelect from "@/core/components/AppSelect";
 import { mapState, mapActions } from "vuex";
+import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
+import AppSelect from "@/core/components/AppSelect";
 
 export default {
   name: "Category",
 
   components: {
+    WithAddQueryParam,
     AppSelect,
   },
 
@@ -36,24 +31,8 @@ export default {
     ...mapState("Filter/Category", ["categories"]),
   },
 
-  created() {
-    if (this.$route.query.category) {
-      this.setActive(this.$route.query.category);
-    }
-  },
-
   methods: {
     ...mapActions("Filter/Category", ["setActive"]),
-
-    categoryChange(value) {
-      this.$router.push({
-        path: "/",
-        query: {
-          ...this.$route.query,
-          category: value,
-        },
-      });
-    },
   },
 };
 </script>

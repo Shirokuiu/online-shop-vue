@@ -8,7 +8,7 @@
 <script>
 import VueSlider from "vue-slider-component";
 import { mapActions, mapState } from "vuex";
-import { getRangePrice } from "@/modules/filter/helpers/get-range-price";
+import { getRangePrice } from "@/modules/filter/helpers";
 
 export default {
   name: "Price",
