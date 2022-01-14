@@ -1,17 +1,29 @@
 <template>
-  <AppSelect id="categories" :options="categories" @change="categoryChange"
-    >Категория товаров</AppSelect
+  <WithAddQueryParam
+    query-param-key="category"
+    @set-active="this.setActive"
+    v-slot="scope"
   >
+    <AppSelect
+      id="categories1"
+      name="categories1"
+      :options="categories"
+      @change="scope.change"
+      >Категория товаров</AppSelect
+    >
+  </WithAddQueryParam>
 </template>
 
 <script>
-import AppSelect from "@/core/components/AppSelect";
 import { mapState, mapActions } from "vuex";
+import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
+import AppSelect from "@/core/components/AppSelect";
 
 export default {
   name: "Category",
 
   components: {
+    WithAddQueryParam,
     AppSelect,
   },
 
@@ -19,24 +31,8 @@ export default {
     ...mapState("Filter/Category", ["categories"]),
   },
 
-  created() {
-    if (this.$route.query.category) {
-      this.setActive(this.$route.query.category);
-    }
-  },
-
   methods: {
     ...mapActions("Filter/Category", ["setActive"]),
-
-    categoryChange(value) {
-      this.$router.push({
-        path: "/",
-        query: {
-          ...this.$route.query,
-          category: value,
-        },
-      });
-    },
   },
 };
 </script>
