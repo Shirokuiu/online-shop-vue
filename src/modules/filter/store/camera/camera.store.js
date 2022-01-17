@@ -27,7 +27,7 @@ export default {
     cameraTypes: buildCheckboxes({
       values: checkboxesCameraValues,
       name: "camera-type",
-      label: CheckboxLabel,
+      Labels: CheckboxLabel,
     }),
     resolutionMatrix: buildSelect({
       selectValues: resolutionMatrixValues,

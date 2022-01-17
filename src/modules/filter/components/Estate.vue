@@ -2,23 +2,16 @@
   <div class="filter__estate">
     <fieldset class="filter__type filter__type--estate">
       <legend>Тип недвижимости</legend>
-      <ul class="filter__checkboxes-list filter__checkboxes-list--estate">
-        <li class="filter__checkboxes-item">
-          <AppCheckbox id="house" name="estate-type" value="house">
-            Дом
-          </AppCheckbox>
-        </li>
-        <li class="filter__checkboxes-item">
-          <AppCheckbox id="flat" name="estate-type" value="flat">
-            Квартира
-          </AppCheckbox>
-        </li>
-        <li class="filter__checkboxes-item">
-          <AppCheckbox id="apartments" name="estate-type" value="apartments">
-            Апартаменты
-          </AppCheckbox>
-        </li>
-      </ul>
+      <WithAddQueryParam
+        v-slot="{ change }"
+        query-param-key="estate-type"
+        @on-has-query-init="setActiveEstateType"
+        ><CheckboxGroup
+          :checkboxes="estateTypes"
+          @change="onEstateTypeChange($event, change)"
+          class="filter__checkboxes-list--estate"
+        ></CheckboxGroup
+      ></WithAddQueryParam>
     </fieldset>
     <div class="filter__min-square">
       <label for="square">Минимальная площать, м<sup>2</sup></label>
@@ -57,17 +50,35 @@
 </template>
 
 <script>
-import AppCheckbox from "@/core/components/AppCheckbox";
 import AppInputNumber from "@/core/components/AppInputNumber";
 import AppRadio from "@/core/components/AppRadio";
+import CheckboxGroup from "@/modules/filter/components/CheckboxGroup";
+import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
+import { mapActions, mapState } from "vuex";
+import { buildQueryParamsByArray } from "@/modules/filter/helpers";
 
 export default {
   name: "Estate",
 
   components: {
-    AppCheckbox,
     AppInputNumber,
     AppRadio,
+    CheckboxGroup,
+    WithAddQueryParam,
+  },
+
+  computed: {
+    ...mapState("Filter/Estate", ["estateTypes"]),
+  },
+
+  methods: {
+    ...mapActions("Filter/Estate", ["setActiveEstateType"]),
+
+    onEstateTypeChange(checkedValues, cb = () => undefined) {
+      cb(buildQueryParamsByArray(checkedValues));
+
+      this.setActiveEstateType(checkedValues);
+    },
   },
 };
 </script>
