@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot :change="onSelectChange"></slot>
+    <slot :change="onChange"></slot>
   </div>
 </template>
 
@@ -18,15 +18,15 @@ export default {
   created() {
     if (this.$route.query[this.queryParamKey]) {
       /**
-       * set-active - Если в url есть квери параметр, то передаст эмит родителю
+       * on-has-query-init - Если в url есть квери параметр, то передаст эмит родителю
        * с этим квери параметром
        */
-      this.$emit("set-active", this.$route.query[this.queryParamKey]);
+      this.$emit("on-has-query-init", this.$route.query[this.queryParamKey]);
     }
   },
 
   methods: {
-    onSelectChange(value) {
+    onChange(value) {
       this.$router.push({
         path: "/",
         query: {

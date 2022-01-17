@@ -1,7 +1,7 @@
 <template>
   <WithAddQueryParam
     query-param-key="category"
-    @set-active="this.setActive"
+    @on-has-query-init="this.setActive"
     v-slot="{ change }"
   >
     <AppSelect

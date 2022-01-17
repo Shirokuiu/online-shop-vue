@@ -6,6 +6,8 @@
       :name="name"
       :value="value"
       :id="id"
+      :checked="checked"
+      @change="$emit('change', value)"
     />
     <label :for="id"><slot>Дом</slot></label>
   </div>
@@ -29,6 +31,11 @@ export default {
     name: {
       type: String,
       default: "checkbox",
+    },
+
+    checked: {
+      type: Boolean,
+      default: false,
     },
   },
 };

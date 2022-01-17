@@ -21,17 +21,24 @@ export const ResolutionVideoMap = {
   [resolutionVideoValues[4]]: "5K",
 };
 
-export const TypesCamera = {
+export const TypesResolution = {
   Matrix: "matrix",
   Video: "video",
 };
 
 export const TypesCameraState = {
-  [TypesCamera.Matrix]: "resolutionMatrix",
-  [TypesCamera.Video]: "resolutionVideo",
+  [TypesResolution.Matrix]: "resolutionMatrix",
+  [TypesResolution.Video]: "resolutionVideo",
 };
 
-export const TypesCameraMutation = {
-  [TypesCamera.Matrix]: SET_ACTIVE_MATRIX,
-  [TypesCamera.Video]: SET_ACTIVE_VIDEO,
+export const TypesResolutionMutation = {
+  [TypesResolution.Matrix]: SET_ACTIVE_MATRIX,
+  [TypesResolution.Video]: SET_ACTIVE_VIDEO,
+};
+
+export const checkboxesCameraValues = ["mirror", "digital", "mirrorless"];
+export const CheckboxLabel = {
+  [checkboxesCameraValues[0]]: "Зеркальный",
+  [checkboxesCameraValues[1]]: "Цифровой",
+  [checkboxesCameraValues[2]]: "Беззеркальный",
 };

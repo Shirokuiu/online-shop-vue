@@ -2,30 +2,23 @@
   <div class="filter__camera">
     <fieldset class="filter__type filter__type--camera">
       <legend>Тип фотоаппарата</legend>
-      <ul class="filter__checkboxes-list filter__checkboxes-list--camera">
-        <li class="filter__checkboxes-item">
-          <AppCheckbox id="mirror" value="mirror" name="camera-type"
-            >Зеркальный</AppCheckbox
-          >
-        </li>
-        <li class="filter__checkboxes-item">
-          <AppCheckbox id="digital" value="digital" name="camera-type"
-            >Цифровой</AppCheckbox
-          >
-        </li>
-        <li class="filter__checkboxes-item">
-          <AppCheckbox id="mirrorless" value="mirrorless" name="camera-type"
-            >Беззеркальный</AppCheckbox
-          >
-        </li>
-      </ul>
+      <WithAddQueryParam
+        v-slot="{ change }"
+        query-param-key="camera-type"
+        @on-has-query-init="setActiveCameraType"
+      >
+        <CheckboxGroup
+          :checkboxes="cameraTypes"
+          @change="onCameraTypeChange($event, change)"
+        />
+      </WithAddQueryParam>
     </fieldset>
     <WithAddQueryParam
       v-slot="{ change }"
       queryParamKey="resolution-matrix"
-      @set-active="
+      @on-has-query-init="
         setActiveResolution({
-          type: TypesCamera.Matrix,
+          type: TypesResolution.Matrix,
           activeOptionValue: $event,
         })
       "
@@ -42,9 +35,9 @@
     <WithAddQueryParam
       v-slot="{ change }"
       queryParamKey="resolution-video"
-      @set-active="
+      @on-has-query-init="
         setActiveResolution({
-          type: TypesCamera.Video,
+          type: TypesResolution.Video,
           activeOptionValue: $event,
         })
       "
@@ -61,33 +54,47 @@
 </template>
 
 <script>
-import AppCheckbox from "@/core/components/AppCheckbox";
+import CheckboxGroup from "@/modules/filter/components/CheckboxGroup";
 import AppSelect from "@/core/components/AppSelect";
 import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
 import { mapActions, mapState } from "vuex";
-import { TypesCamera } from "@/modules/filter/constants";
+import { TypesResolution } from "@/modules/filter/constants";
+import { buildQueryParamsByArray } from "@/modules/filter/helpers";
 
 export default {
   name: "Camera",
 
   components: {
-    AppCheckbox,
+    CheckboxGroup,
     AppSelect,
     WithAddQueryParam,
   },
 
   data() {
     return {
-      TypesCamera,
+      TypesResolution,
     };
   },
 
   computed: {
-    ...mapState("Filter/Camera", ["resolutionMatrix", "resolutionVideo"]),
+    ...mapState("Filter/Camera", [
+      "resolutionMatrix",
+      "resolutionVideo",
+      "cameraTypes",
+    ]),
   },
 
   methods: {
-    ...mapActions("Filter/Camera", ["setActiveResolution"]),
+    ...mapActions("Filter/Camera", [
+      "setActiveResolution",
+      "setActiveCameraType",
+    ]),
+
+    onCameraTypeChange(checkedValues, cb = () => undefined) {
+      cb(buildQueryParamsByArray(checkedValues));
+
+      this.setActiveCameraType(checkedValues);
+    },
   },
 };
 </script>
