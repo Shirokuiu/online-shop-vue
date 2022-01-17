@@ -55,7 +55,7 @@ import AppRadio from "@/core/components/AppRadio";
 import CheckboxGroup from "@/modules/filter/components/CheckboxGroup";
 import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
 import { mapActions, mapState } from "vuex";
-import { buildQueryParamsByArray } from "@/modules/filter/helpers";
+import { parseQueryParamsAndMutate } from "@/modules/filter/helpers";
 
 export default {
   name: "Estate",
@@ -75,9 +75,11 @@ export default {
     ...mapActions("Filter/Estate", ["setActiveEstateType"]),
 
     onEstateTypeChange(checkedValues, cb = () => undefined) {
-      cb(buildQueryParamsByArray(checkedValues));
-
-      this.setActiveEstateType(checkedValues);
+      parseQueryParamsAndMutate({
+        checkedValues,
+        forHocChangeCb: cb,
+        storeAction: () => this.setActiveEstateType(checkedValues),
+      });
     },
   },
 };
