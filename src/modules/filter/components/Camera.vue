@@ -59,7 +59,7 @@ import AppSelect from "@/core/components/AppSelect";
 import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
 import { mapActions, mapState } from "vuex";
 import { TypesResolution } from "@/modules/filter/constants";
-import { parseQueryParamsAndMutate } from "@/modules/filter/helpers";
+import { buildQueryParamsByArray } from "@/modules/filter/helpers";
 
 export default {
   name: "Camera",
@@ -91,11 +91,8 @@ export default {
     ]),
 
     onCameraTypeChange(checkedValues, cb = () => undefined) {
-      parseQueryParamsAndMutate({
-        checkedValues,
-        forHocChangeCb: cb,
-        storeAction: () => this.setActiveCameraType(checkedValues),
-      });
+      cb(buildQueryParamsByArray(checkedValues));
+      this.setActiveCameraType(checkedValues);
     },
   },
 };
