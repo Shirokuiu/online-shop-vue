@@ -1,6 +1,6 @@
 import {
-  SET_ACTIVE_MATRIX,
-  SET_ACTIVE_VIDEO,
+  CHANGE_ACTIVE_MATRIX,
+  CHANGE_ACTIVE_VIDEO,
 } from "@/modules/filter/store/camera/mutation-types";
 
 export const resolutionMatrixValues = ["1mp", "3mp", "5mp", "7mp", "10mp"];
@@ -32,8 +32,8 @@ export const TypesCameraState = {
 };
 
 export const TypesResolutionMutation = {
-  [TypesResolution.Matrix]: SET_ACTIVE_MATRIX,
-  [TypesResolution.Video]: SET_ACTIVE_VIDEO,
+  [TypesResolution.Matrix]: CHANGE_ACTIVE_MATRIX,
+  [TypesResolution.Video]: CHANGE_ACTIVE_VIDEO,
 };
 
 export const checkboxesCameraValues = ["mirror", "digital", "mirrorless"];

@@ -16,8 +16,8 @@ import {
 } from "@/modules/filter/constants";
 import {
   SET_ACTIVE_CAMERA_TYPE,
-  SET_ACTIVE_MATRIX,
-  SET_ACTIVE_VIDEO,
+  CHANGE_ACTIVE_MATRIX,
+  CHANGE_ACTIVE_VIDEO,
 } from "@/modules/filter/store/camera/mutation-types";
 
 export default {
@@ -46,11 +46,11 @@ export default {
       state.cameraTypes = updatedValues;
     },
 
-    [SET_ACTIVE_MATRIX](state, updatedMatrix) {
+    [CHANGE_ACTIVE_MATRIX](state, updatedMatrix) {
       state.resolutionMatrix = updatedMatrix;
     },
 
-    [SET_ACTIVE_VIDEO](state, updatedVideo) {
+    [CHANGE_ACTIVE_VIDEO](state, updatedVideo) {
       state.resolutionVideo = updatedVideo;
     },
   },
