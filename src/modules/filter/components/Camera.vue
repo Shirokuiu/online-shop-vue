@@ -5,7 +5,7 @@
       <WithAddQueryParam
         v-slot="{ change }"
         query-param-key="camera-type"
-        @on-has-query-init="setActiveCameraType"
+        @on-has-query-init="onCameraTypeChange($event)"
       >
         <CheckboxGroup
           :checkboxes="cameraTypes"
@@ -81,7 +81,9 @@ export default {
     ]),
 
     onCameraTypeChange(checkedValues, cb = () => undefined) {
-      cb(buildQueryParamsByArray(checkedValues));
+      if (cb) {
+        cb(buildQueryParamsByArray(checkedValues));
+      }
       this.setActiveCameraType(checkedValues);
     },
 

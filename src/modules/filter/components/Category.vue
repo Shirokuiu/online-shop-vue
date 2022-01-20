@@ -1,7 +1,7 @@
 <template>
   <WithAddQueryParam
     query-param-key="category"
-    @on-has-query-init="changeActiveCategory"
+    @on-has-query-init="onSelectChange($event)"
     v-slot="{ change }"
   >
     <AppSelect
@@ -35,7 +35,9 @@ export default {
     ...mapActions("Filter/Category", ["changeActiveCategory"]),
 
     onSelectChange(categoryValue, cb) {
-      cb(categoryValue);
+      if (cb) {
+        cb(categoryValue);
+      }
       this.changeActiveCategory(categoryValue);
     },
   },

@@ -5,7 +5,7 @@
       <WithAddQueryParam
         v-slot="{ change }"
         query-param-key="estate-type"
-        @on-has-query-init="setActiveEstateType"
+        @on-has-query-init="onEstateTypeChange($event)"
         ><CheckboxGroup
           :checkboxes="estateTypes"
           @change="onEstateTypeChange($event, change)"
@@ -33,7 +33,7 @@
       <WithAddQueryParam
         v-slot="{ change }"
         query-param-key="rooms"
-        @on-has-query-init="changeActiveRoom"
+        @on-has-query-init="onRoomChange($event)"
       >
         <RadioGroup
           :radio-btns="rooms"
@@ -74,21 +74,24 @@ export default {
     ]),
 
     onEstateTypeChange(checkedValues, cb) {
-      cb(buildQueryParamsByArray(checkedValues));
+      this._isRunCb(buildQueryParamsByArray(checkedValues), cb);
       this.setActiveEstateType(checkedValues);
     },
 
     onMinSquareChange(changedValue, cb) {
-      if (cb) {
-        cb(changedValue);
-      }
-
+      this._isRunCb(changedValue, cb);
       this.changeMinSquare(changedValue);
     },
 
     onRoomChange(activeValue, cb) {
-      cb(activeValue);
+      this._isRunCb(activeValue, cb);
       this.changeActiveRoom(activeValue);
+    },
+
+    _isRunCb(activeValue, cb) {
+      if (cb) {
+        cb(activeValue);
+      }
     },
   },
 };
