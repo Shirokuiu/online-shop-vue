@@ -30,13 +30,13 @@ export default {
       Labels: CheckboxLabel,
     }),
     resolutionMatrix: buildSelect({
-      selectValues: resolutionMatrixValues,
-      selectKeyMap: ResolutionMatrixMap,
+      values: resolutionMatrixValues,
+      Labels: ResolutionMatrixMap,
       activeValue: resolutionMatrixValues[0],
     }),
     resolutionVideo: buildSelect({
-      selectValues: resolutionVideoValues,
-      selectKeyMap: ResolutionVideoMap,
+      values: resolutionVideoValues,
+      Labels: ResolutionVideoMap,
       activeValue: resolutionVideoValues[0],
     }),
   }),
@@ -66,6 +66,8 @@ export default {
     },
 
     setActiveCameraType({ state, commit }, checkedValues) {
+      console.log(state.cameraTypes);
+
       const updatedValues = setActiveCheckbox({
         checkboxes: state.cameraTypes,
         checkedValues,

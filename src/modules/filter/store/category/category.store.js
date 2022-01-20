@@ -7,8 +7,8 @@ export default {
 
   state: () => ({
     categories: buildSelect({
-      selectValues: CategoriesValues,
-      selectKeyMap: CategoriesLabel,
+      values: CategoriesValues,
+      Labels: CategoriesLabel,
       activeValue: CategoriesValues[0],
     }),
   }),
