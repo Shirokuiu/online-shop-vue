@@ -3,13 +3,19 @@
  * @param name - Имя чекбокса для всех элементов
  * @param Labels - Текст чекбокса - передается словарь,
  * в котором value ключ для значения
- * @returns {Array<Object>} - Массив чекбокосов
+ * @returns {Array<{
+ *   id: String | Number,
+ *   label: String,
+ *   value: String,
+ *   name: String,
+ *   checked: Boolean
+ * }>} - Массив чекбокосов
  */
+import { buildDefaultFormActions } from "@/modules/filter/helpers/build-default-form-actions";
+
 export const buildCheckboxes = ({ values, name, Labels }) =>
-  values.map((value) => ({
-    id: value,
-    label: Labels[value],
-    checked: false,
-    name,
-    value,
-  }));
+  buildDefaultFormActions({
+    makeCustomValues: () => ({ checked: false, name }),
+    values,
+    Labels,
+  });

@@ -1,8 +1,19 @@
-import { buildCheckboxes, setActiveCheckbox } from "@/modules/filter/helpers";
-import { EstateLabels, estateTypeValues } from "@/modules/filter/constants";
 import {
+  buildCheckboxes,
+  buildRadioBtns,
+  setActiveCheckbox,
+  changeActiveRadio,
+} from "@/modules/filter/helpers";
+import {
+  EstateLabels,
+  EstateRoomLabels,
+  estateRoomValues,
+  estateTypeValues,
+} from "@/modules/filter/constants";
+import {
+  CHANGE_ACTIVE_ROOM,
+  CHANGE_MIN_SQUARE,
   SET_ACTIVE_ESTATE_TYPE,
-  SET_MIN_SQUARE,
 } from "@/modules/filter/store/estate/mutation-types";
 
 export default {
@@ -14,6 +25,12 @@ export default {
       name: "estate-type",
       Labels: EstateLabels,
     }),
+    rooms: buildRadioBtns({
+      values: estateRoomValues,
+      Labels: EstateRoomLabels,
+      name: "rooms",
+      checkedValue: "any_room",
+    }),
     minSquare: 0,
   }),
 
@@ -22,8 +39,12 @@ export default {
       state.estateTypes = updatedValues;
     },
 
-    [SET_MIN_SQUARE](state, value) {
+    [CHANGE_MIN_SQUARE](state, value) {
       state.minSquare = value;
+    },
+
+    [CHANGE_ACTIVE_ROOM](state, changedValues) {
+      state.rooms = changedValues;
     },
   },
 
@@ -37,10 +58,19 @@ export default {
       commit(SET_ACTIVE_ESTATE_TYPE, updatedValues);
     },
 
-    setMinSquare({ commit }, value) {
+    changeMinSquare({ commit }, value) {
       const parsedValue = parseInt(value, 10) ?? 0;
 
-      commit(SET_MIN_SQUARE, parsedValue);
+      commit(CHANGE_MIN_SQUARE, parsedValue);
+    },
+
+    changeActiveRoom({ state, commit }, activeValue) {
+      const changedRadioBtns = changeActiveRadio({
+        radioBtns: state.rooms,
+        activeValue,
+      });
+
+      commit(CHANGE_ACTIVE_ROOM, changedRadioBtns);
     },
   },
 };

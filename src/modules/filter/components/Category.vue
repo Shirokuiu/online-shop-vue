@@ -1,14 +1,14 @@
 <template>
   <WithAddQueryParam
     query-param-key="category"
-    @on-has-query-init="this.setActive"
+    @on-has-query-init="onSelectChange($event)"
     v-slot="{ change }"
   >
     <AppSelect
       id="categories1"
       name="categories1"
       :options="categories"
-      @change="change"
+      @change="onSelectChange($event, change)"
       >Категория товаров</AppSelect
     >
   </WithAddQueryParam>
@@ -32,7 +32,14 @@ export default {
   },
 
   methods: {
-    ...mapActions("Filter/Category", ["setActive"]),
+    ...mapActions("Filter/Category", ["changeActiveCategory"]),
+
+    onSelectChange(categoryValue, cb) {
+      if (cb) {
+        cb(categoryValue);
+      }
+      this.changeActiveCategory(categoryValue);
+    },
   },
 };
 </script>

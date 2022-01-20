@@ -5,7 +5,7 @@
       <WithAddQueryParam
         v-slot="{ change }"
         query-param-key="estate-type"
-        @on-has-query-init="setActiveEstateType"
+        @on-has-query-init="onEstateTypeChange($event)"
         ><CheckboxGroup
           :checkboxes="estateTypes"
           @change="onEstateTypeChange($event, change)"
@@ -18,47 +18,37 @@
       <WithAddQueryParam
         v-slot="{ change }"
         query-param-key="min-square"
-        @on-has-query-init="setMinSquare"
+        @on-has-query-init="onMinSquareChange($event)"
         ><AppInputNumber
           id="square"
           :value="minSquare"
           name="min-square"
           :min="1"
           placeholder="1"
-          @change="change"
+          @change="onMinSquareChange($event, change)"
       /></WithAddQueryParam>
     </div>
     <fieldset class="filter__radiobuttons filter__radiobuttons--ram">
       <legend>Количество комнат</legend>
-      <ul class="filter__ram-list">
-        <li class="filter__radiobuttons-item">
-          <AppRadio id="any_room" value="any" name="rooms"> Любое </AppRadio>
-        </li>
-        <li class="filter__radiobuttons-item">
-          <AppRadio id="one" value="one" name="rooms"> 1 </AppRadio>
-        </li>
-        <li class="filter__radiobuttons-item">
-          <AppRadio id="two" value="two" name="rooms"> 2 </AppRadio>
-        </li>
-        <li class="filter__radiobuttons-item">
-          <AppRadio id="three" value="three" name="rooms"> 3 </AppRadio>
-        </li>
-        <li class="filter__radiobuttons-item">
-          <AppRadio id="four" value="four" name="rooms"> 4 </AppRadio>
-        </li>
-        <li class="filter__radiobuttons-item">
-          <AppRadio id="fivemore" value="fivemore" name="rooms"> 5+ </AppRadio>
-        </li>
-      </ul>
+      <WithAddQueryParam
+        v-slot="{ change }"
+        query-param-key="rooms"
+        @on-has-query-init="onRoomChange($event)"
+      >
+        <RadioGroup
+          :radio-btns="rooms"
+          @on-change="onRoomChange($event, change)"
+        />
+      </WithAddQueryParam>
     </fieldset>
   </div>
 </template>
 
 <script>
 import AppInputNumber from "@/core/components/AppInputNumber";
-import AppRadio from "@/core/components/AppRadio";
 import CheckboxGroup from "@/modules/filter/components/CheckboxGroup";
 import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
+import RadioGroup from "@/modules/filter/components/RadioGroup";
 import { mapActions, mapState } from "vuex";
 import { buildQueryParamsByArray } from "@/modules/filter/helpers";
 
@@ -67,21 +57,41 @@ export default {
 
   components: {
     AppInputNumber,
-    AppRadio,
     CheckboxGroup,
     WithAddQueryParam,
+    RadioGroup,
   },
 
   computed: {
-    ...mapState("Filter/Estate", ["estateTypes", "minSquare"]),
+    ...mapState("Filter/Estate", ["estateTypes", "minSquare", "rooms"]),
   },
 
   methods: {
-    ...mapActions("Filter/Estate", ["setActiveEstateType", "setMinSquare"]),
+    ...mapActions("Filter/Estate", [
+      "setActiveEstateType",
+      "changeMinSquare",
+      "changeActiveRoom",
+    ]),
 
-    onEstateTypeChange(checkedValues, cb = () => undefined) {
-      cb(buildQueryParamsByArray(checkedValues));
+    onEstateTypeChange(checkedValues, cb) {
+      this._isRunCb(buildQueryParamsByArray(checkedValues), cb);
       this.setActiveEstateType(checkedValues);
+    },
+
+    onMinSquareChange(changedValue, cb) {
+      this._isRunCb(changedValue, cb);
+      this.changeMinSquare(changedValue);
+    },
+
+    onRoomChange(activeValue, cb) {
+      this._isRunCb(activeValue, cb);
+      this.changeActiveRoom(activeValue);
+    },
+
+    _isRunCb(activeValue, cb) {
+      if (cb) {
+        cb(activeValue);
+      }
     },
   },
 };

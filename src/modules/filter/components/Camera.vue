@@ -5,7 +5,7 @@
       <WithAddQueryParam
         v-slot="{ change }"
         query-param-key="camera-type"
-        @on-has-query-init="setActiveCameraType"
+        @on-has-query-init="onCameraTypeChange($event)"
       >
         <CheckboxGroup
           :checkboxes="cameraTypes"
@@ -16,37 +16,27 @@
     <WithAddQueryParam
       v-slot="{ change }"
       queryParamKey="resolution-matrix"
-      @on-has-query-init="
-        setActiveResolution({
-          type: TypesResolution.Matrix,
-          activeOptionValue: $event,
-        })
-      "
+      @on-has-query-init="onSelectChange(TypesResolution.Matrix, $event)"
     >
       <AppSelect
         id="resolution-matrix"
         name="resolution-matrix"
         :options="resolutionMatrix"
         class="filter__select-wrapper--min-resolution"
-        @change="change"
+        @change="onSelectChange(TypesResolution.Matrix, $event, change)"
         >Минимальное разрешение матрицы</AppSelect
       >
     </WithAddQueryParam>
     <WithAddQueryParam
       v-slot="{ change }"
       queryParamKey="resolution-video"
-      @on-has-query-init="
-        setActiveResolution({
-          type: TypesResolution.Video,
-          activeOptionValue: $event,
-        })
-      "
+      @on-has-query-init="onSelectChange(TypesResolution.Video, $event)"
     >
       <AppSelect
         id="resolution-video"
         name="resolution-video"
         :options="resolutionVideo"
-        @change="change"
+        @change="onSelectChange(TypesResolution.Video, $event, change)"
         >>Минимальное разрешение видео</AppSelect
       >
     </WithAddQueryParam>
@@ -91,8 +81,22 @@ export default {
     ]),
 
     onCameraTypeChange(checkedValues, cb = () => undefined) {
-      cb(buildQueryParamsByArray(checkedValues));
+      if (cb) {
+        cb(buildQueryParamsByArray(checkedValues));
+      }
       this.setActiveCameraType(checkedValues);
+    },
+
+    onSelectChange(type, activeOptionValue, cb) {
+      // NOTE Вызов колбека AppSelect
+      if (cb) {
+        cb(activeOptionValue);
+      }
+
+      this.setActiveResolution({
+        type,
+        activeOptionValue,
+      });
     },
   },
 };

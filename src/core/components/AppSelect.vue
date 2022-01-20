@@ -12,7 +12,7 @@
         :value="option.value"
         :selected="option.isSelected"
       >
-        {{ option.text }}
+        {{ option.label }}
       </option>
     </select>
     <svg
