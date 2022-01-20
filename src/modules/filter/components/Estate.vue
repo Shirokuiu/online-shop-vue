@@ -18,14 +18,14 @@
       <WithAddQueryParam
         v-slot="{ change }"
         query-param-key="min-square"
-        @on-has-query-init="setMinSquare"
+        @on-has-query-init="onMinSquareChange($event)"
         ><AppInputNumber
           id="square"
           :value="minSquare"
           name="min-square"
           :min="1"
           placeholder="1"
-          @change="change"
+          @change="onMinSquareChange($event, change)"
       /></WithAddQueryParam>
     </div>
     <fieldset class="filter__radiobuttons filter__radiobuttons--ram">
@@ -69,13 +69,21 @@ export default {
   methods: {
     ...mapActions("Filter/Estate", [
       "setActiveEstateType",
-      "setMinSquare",
+      "changeMinSquare",
       "changeActiveRoom",
     ]),
 
     onEstateTypeChange(checkedValues, cb) {
       cb(buildQueryParamsByArray(checkedValues));
       this.setActiveEstateType(checkedValues);
+    },
+
+    onMinSquareChange(changedValue, cb) {
+      if (cb) {
+        cb(changedValue);
+      }
+
+      this.changeMinSquare(changedValue);
     },
 
     onRoomChange(activeValue, cb) {

@@ -12,8 +12,8 @@ import {
 } from "@/modules/filter/constants";
 import {
   CHANGE_ACTIVE_ROOM,
+  CHANGE_MIN_SQUARE,
   SET_ACTIVE_ESTATE_TYPE,
-  SET_MIN_SQUARE,
 } from "@/modules/filter/store/estate/mutation-types";
 
 export default {
@@ -39,7 +39,7 @@ export default {
       state.estateTypes = updatedValues;
     },
 
-    [SET_MIN_SQUARE](state, value) {
+    [CHANGE_MIN_SQUARE](state, value) {
       state.minSquare = value;
     },
 
@@ -58,10 +58,10 @@ export default {
       commit(SET_ACTIVE_ESTATE_TYPE, updatedValues);
     },
 
-    setMinSquare({ commit }, value) {
+    changeMinSquare({ commit }, value) {
       const parsedValue = parseInt(value, 10) ?? 0;
 
-      commit(SET_MIN_SQUARE, parsedValue);
+      commit(CHANGE_MIN_SQUARE, parsedValue);
     },
 
     changeActiveRoom({ state, commit }, activeValue) {
