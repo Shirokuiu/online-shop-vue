@@ -15,13 +15,18 @@
     </fieldset>
     <div class="filter__min-square">
       <label for="square">Минимальная площать, м<sup>2</sup></label>
-      <AppInputNumber
-        id="square"
-        :value="0"
-        name="min-square"
-        :min="1"
-        placeholder="0"
-      />
+      <WithAddQueryParam
+        v-slot="{ change }"
+        query-param-key="min-square"
+        @on-has-query-init="setMinSquare"
+        ><AppInputNumber
+          id="square"
+          :value="minSquare"
+          name="min-square"
+          :min="1"
+          placeholder="1"
+          @change="change"
+      /></WithAddQueryParam>
     </div>
     <fieldset class="filter__radiobuttons filter__radiobuttons--ram">
       <legend>Количество комнат</legend>
@@ -55,7 +60,7 @@ import AppRadio from "@/core/components/AppRadio";
 import CheckboxGroup from "@/modules/filter/components/CheckboxGroup";
 import WithAddQueryParam from "@/modules/filter/hocs/WithAddQueryParam";
 import { mapActions, mapState } from "vuex";
-import { parseQueryParamsAndMutate } from "@/modules/filter/helpers";
+import { buildQueryParamsByArray } from "@/modules/filter/helpers";
 
 export default {
   name: "Estate",
@@ -68,18 +73,15 @@ export default {
   },
 
   computed: {
-    ...mapState("Filter/Estate", ["estateTypes"]),
+    ...mapState("Filter/Estate", ["estateTypes", "minSquare"]),
   },
 
   methods: {
-    ...mapActions("Filter/Estate", ["setActiveEstateType"]),
+    ...mapActions("Filter/Estate", ["setActiveEstateType", "setMinSquare"]),
 
     onEstateTypeChange(checkedValues, cb = () => undefined) {
-      parseQueryParamsAndMutate({
-        checkedValues,
-        forHocChangeCb: cb,
-        storeAction: () => this.setActiveEstateType(checkedValues),
-      });
+      cb(buildQueryParamsByArray(checkedValues));
+      this.setActiveEstateType(checkedValues);
     },
   },
 };

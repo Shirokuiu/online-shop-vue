@@ -6,6 +6,7 @@
     :min="min"
     :value="value"
     :placeholder="placeholder"
+    @change="$emit('change', $event.target.value)"
   />
 </template>
 
