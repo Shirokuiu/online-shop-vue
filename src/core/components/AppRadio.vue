@@ -6,6 +6,8 @@
       :name="name"
       :value="value"
       :id="id"
+      :checked="checked"
+      @change="$emit('on-change', $event.target.value)"
     />
     <label :for="id"><slot></slot></label>
   </div>
@@ -29,6 +31,11 @@ export default {
     name: {
       type: String,
       default: "radio",
+    },
+
+    checked: {
+      type: Boolean,
+      default: false,
     },
   },
 };

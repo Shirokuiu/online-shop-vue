@@ -66,8 +66,6 @@ export default {
     },
 
     setActiveCameraType({ state, commit }, checkedValues) {
-      console.log(state.cameraTypes);
-
       const updatedValues = setActiveCheckbox({
         checkboxes: state.cameraTypes,
         checkedValues,
